@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div th:insert="links.html"></div>
+</head>
+<body>
+<div th:insert="navbar.html"></div>
+
+<div class="container mt-2">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>MODEL</th>
+            <th>COUNTRY</th>
+            <th>ENGINE</th>
+            <th>COST</th>
+            <th>YEAR</th>
+            <th style="width: 12%">DELETE CAR</th>
+            <th style="width: 8%">DETAILS</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="car: ${cars}">
+            <td th:text="${car.id}"></td>
+            <td th:text="${car.model}"></td>
+            <td th:text="${car.country}"></td>
+            <td th:text="${car.engine}"></td>
+            <td th:text="${car.cost}"></td>
+            <td th:text="${car.year}"></td>
+            <form action="/delete-car" method="post">
+                <input type="hidden" name="id" th:value="${car.id}">
+                <td> <button class="btn btn-sm btn-danger" type="submit">DELETE CAR</button> </td>
+            </form>
+            <td><a class="btn btn-sm btn-secondary" th:href="@{'/get-car/' + ${car.id}}">DETAILS</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>
