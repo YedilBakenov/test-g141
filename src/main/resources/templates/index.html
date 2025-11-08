@@ -1,14 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <div th:insert="links.html"></div>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="main-maket.html">
 <body>
-<div th:insert="navbar.html"></div>
 
-<div class="container mt-2">
+<div layout:fragment="other_page">
     <table class="table table-striped">
         <thead>
         <tr>
@@ -18,7 +14,7 @@
             <th>ENGINE</th>
             <th>COST</th>
             <th>YEAR</th>
-            <th style="width: 12%">DELETE CAR</th>
+            <th style="width: 14%">DELETE CAR</th>
             <th style="width: 8%">DETAILS</th>
         </tr>
         </thead>

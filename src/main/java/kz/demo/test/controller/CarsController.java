@@ -19,7 +19,7 @@ public class CarsController {
         return "index";
     }
 
-    @GetMapping(value = "/add-car")
+    @GetMapping(value = "/add-car") // http:localhost:8080/add-car
     public String addCarPage(){
         return "add-car-page";
     }
