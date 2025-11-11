@@ -1,5 +1,6 @@
 package kz.demo.test.controller;
 
+import kz.demo.test.db.DBConnector;
 import kz.demo.test.db.DBManager;
 import kz.demo.test.model.Car;
 import org.apache.catalina.users.SparseUserDatabase;
@@ -15,7 +16,7 @@ public class CarsController {
 
     @GetMapping(value = "/") //http://localhost:8080/
     public String mainPage(Model model){
-        model.addAttribute("cars", DBManager.getCarList());
+        model.addAttribute("cars", DBConnector.getAllCars());
         return "index";
     }
 
@@ -40,7 +41,7 @@ public class CarsController {
     public String updateCar(@PathVariable int id,
             Model model){
 
-        model.addAttribute("car",DBManager.getCarById(id));
+        model.addAttribute("car",DBConnector.getCarById(id));
 
         return "update-car-page";
     }
