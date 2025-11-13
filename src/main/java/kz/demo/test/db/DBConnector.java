@@ -13,7 +13,7 @@ public class DBConnector {
     private static Connection connection;
     private static String login = "postgres";
     private static String password = "postgres";
-    private static String url = "jdbc:postgresql://localhost:5433/postgres?currentSchema=test_car";
+    private static String url = "jdbc:postgresql://localhost:5436/g141?currentSchema=test";
 
     static {
         try {
@@ -31,7 +31,7 @@ public class DBConnector {
 
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * " +
-                    "FROM test_car.cars");
+                    "FROM test.cars ORDER BY id ASC");
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -62,7 +62,7 @@ public class DBConnector {
         Car car = new Car();
 
         try{
-            PreparedStatement statement  = connection.prepareStatement("SELECT * FROM test_car.cars WHERE id=?");
+            PreparedStatement statement  = connection.prepareStatement("SELECT * FROM test.cars WHERE id=?");
             statement.setInt(1, id);
 
             ResultSet resultSet = statement.executeQuery();
@@ -81,6 +81,64 @@ public class DBConnector {
         }
 
         return car;
+    }
+
+    public static void addCar(Car car){
+
+        try {
+
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO test.cars " +
+                    "(model, engine, cost, year, country) VALUES (?, ?, ?, ?, ?)");
+            statement.setString(1, car.getModel());
+            statement.setDouble(2, car.getEngine());
+            statement.setDouble(3, car.getCost());
+            statement.setInt(4, car.getYear());
+            statement.setString(5, car.getCountry());
+
+            statement.executeUpdate();
+            statement.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void updateCar(Car car){
+
+        try {
+
+            PreparedStatement statement = connection.prepareStatement("UPDATE test.cars SET model=?, engine=?, " +
+                    "cost=?, year=?, country=? WHERE id=?");
+            statement.setString(1, car.getModel());
+            statement.setDouble(2, car.getEngine());
+            statement.setDouble(3, car.getCost());
+            statement.setInt(4, car.getYear());
+            statement.setString(5, car.getCountry());
+            statement.setInt(6, car.getId());
+
+            statement.executeUpdate();
+            statement.close();
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteCar(int id){
+
+        try {
+
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM test.cars WHERE id=?");
+            statement.setInt(1, id);
+
+            statement.executeUpdate();
+            statement.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
 }

@@ -27,13 +27,13 @@ public class CarsController {
 
     @PostMapping(value = "/add-car")
     public String addCar(Car car){
-        DBManager.addCar(car);
+        DBConnector.addCar(car);
         return "redirect:/";
     }
 
     @PostMapping(value = "/delete-car")
     public String deleteCar(@RequestParam int id){
-        DBManager.deleteCarById(id);
+        DBConnector.deleteCar(id);
         return "redirect:/";
     }
 
@@ -49,7 +49,7 @@ public class CarsController {
     @PostMapping(value = "/update-car")
     public String updateCar(Car car){
 
-        DBManager.updateCar(car);
+        DBConnector.updateCar(car);
 
         return "redirect:/get-car/" + car.getId();
 
