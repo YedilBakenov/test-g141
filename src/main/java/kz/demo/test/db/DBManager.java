@@ -1,6 +1,7 @@
 package kz.demo.test.db;
 
 import kz.demo.test.model.Car;
+import kz.demo.test.model.City;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -14,11 +15,11 @@ public class DBManager {
     private static int id = 6;
 
     static {
-        carList.add(new Car(1, "BMW X5", 5.0, 70000, 2023, "Germany"));
-        carList.add(new Car(2, "BMW X6", 3.0, 100000, 2025, "Germany"));
-        carList.add(new Car(3, "BMW X3", 2.0, 60000, 2024, "Germany"));
-        carList.add(new Car(4, "MERCEDES S-500", 5.0, 170000, 2024, "Germany"));
-        carList.add(new Car(5, "MERCEDES G-500", 5.5, 240000, 2025, "Germany"));
+        carList.add(new Car(1, "BMW X5", 5.0, 70000, 2023, "Germany", new City()));
+        carList.add(new Car(2, "BMW X6", 3.0, 100000, 2025, "Germany", new City()));
+        carList.add(new Car(3, "BMW X3", 2.0, 60000, 2024, "Germany", new City()));
+        carList.add(new Car(4, "MERCEDES S-500", 5.0, 170000, 2024, "Germany", new City()));
+        carList.add(new Car(5, "MERCEDES G-500", 5.5, 240000, 2025, "Germany", new City()));
     }
 
     public static void addCar(Car car){

@@ -9,12 +9,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Car {
+public class City {
     private int id;
-    private String model;
-    private double engine;
-    private double cost;
-    private int year;
-    private String country;
-    private City city;
+    private String code;
+    private String name;
+    private int countPeople;
 }

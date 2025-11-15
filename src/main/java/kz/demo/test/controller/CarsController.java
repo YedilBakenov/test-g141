@@ -1,9 +1,7 @@
 package kz.demo.test.controller;
 
 import kz.demo.test.db.DBConnector;
-import kz.demo.test.db.DBManager;
 import kz.demo.test.model.Car;
-import org.apache.catalina.users.SparseUserDatabase;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +19,8 @@ public class CarsController {
     }
 
     @GetMapping(value = "/add-car") // http:localhost:8080/add-car
-    public String addCarPage(){
+    public String addCarPage(Model model){
+        model.addAttribute("cities", DBConnector.getAllCities());
         return "add-car-page";
     }
 
@@ -42,6 +41,7 @@ public class CarsController {
             Model model){
 
         model.addAttribute("car",DBConnector.getCarById(id));
+        model.addAttribute("cities", DBConnector.getAllCities());
 
         return "update-car-page";
     }
