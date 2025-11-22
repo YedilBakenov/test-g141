@@ -1,7 +1,9 @@
 package kz.demo.test.controller;
 
 import kz.demo.test.model.Car;
+import kz.demo.test.model.City;
 import kz.demo.test.repository.CarRepository;
+import kz.demo.test.repository.CityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,11 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class CarsController {
 
     private final CarRepository carRepository;
+    private final CityRepository cityRepository;
 
     @GetMapping(value = "/") //http://localhost:8080/
     public String mainPage(Model model){
@@ -43,7 +48,15 @@ public class CarsController {
     public String updateCar(@PathVariable int id,
             Model model){
 
-        model.addAttribute("car",carRepository.findById(id));
+        Car car = carRepository.findById(id).orElseThrow();
+
+        model.addAttribute("car",car);
+
+        List<City> cities = cityRepository.findAll();
+
+        cities.removeAll(car.getCities());
+
+        model.addAttribute("cities", cities);
 
         return "update-car-page";
     }
@@ -54,6 +67,38 @@ public class CarsController {
         carRepository.save(car);
 
         return "redirect:/get-car/" + car.getId();
+
+    }
+
+    @PostMapping(value = "/delete-city")
+    public String deleteCity(@RequestParam int car_id,
+                             @RequestParam int city_id){
+
+        Car car = carRepository.findById(car_id).get();
+        City city = cityRepository.findById(city_id).get();
+
+        car.getCities().remove(city);
+
+        carRepository.save(car);
+
+        return "redirect:/get-car/" + car_id;
+
+
+    }
+
+    @PostMapping(value = "/add-city")
+    public String addCity(@RequestParam int car_id,
+                             @RequestParam int city_id){
+
+        Car car = carRepository.findById(car_id).get();
+        City city = cityRepository.findById(city_id).get();
+
+        car.getCities().add(city);
+
+        carRepository.save(car);
+
+        return "redirect:/get-car/" + car_id;
+
 
     }
 

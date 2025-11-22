@@ -13,14 +13,14 @@ public class DBManager {
     private static List<Car> carList = new ArrayList<>();
 
     private static int id = 6;
-
-    static {
-        carList.add(new Car(1, "BMW X5", 5.0, 70000, 2023, "Germany","Almaty"));
-        carList.add(new Car(2, "BMW X6", 3.0, 100000, 2025, "Germany", "Almaty"));
-        carList.add(new Car(3, "BMW X3", 2.0, 60000, 2024, "Germany", "Almaty"));
-        carList.add(new Car(4, "MERCEDES S-500", 5.0, 170000, 2024, "Germany", "Almaty"));
-        carList.add(new Car(5, "MERCEDES G-500", 5.5, 240000, 2025, "Germany", "Almaty"));
-    }
+//
+//    static {
+//        carList.add(new Car(1, "BMW X5", 5.0, 70000, 2023, "Germany","Almaty"));
+//        carList.add(new Car(2, "BMW X6", 3.0, 100000, 2025, "Germany", "Almaty"));
+//        carList.add(new Car(3, "BMW X3", 2.0, 60000, 2024, "Germany", "Almaty"));
+//        carList.add(new Car(4, "MERCEDES S-500", 5.0, 170000, 2024, "Germany", "Almaty"));
+//        carList.add(new Car(5, "MERCEDES G-500", 5.5, 240000, 2025, "Germany", "Almaty"));
+//    }
 
     public static void addCar(Car car){
         car.setId(id);

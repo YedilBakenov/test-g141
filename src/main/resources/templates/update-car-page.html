@@ -4,79 +4,150 @@
       layout:decorate="main-maket.html">
 <body>
 <div layout:fragment="other_page">
-            <form action="/update-car" method="post">
-                <input type="hidden" name="id" th:value="${car.id}">
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <label>MODEL NAME:</label>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <input type="text" class="form-control" name="model" th:value="${car.model}">
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <label>COUNTRY:</label>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <input type="text" class="form-control" name="country" th:value="${car.country}">
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <label>CITY:</label>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <select class="form-control" name="city.id">
-                            <option th:each="city: ${cities}"
-                                    th:value="${city.id}"
-                                    th:text="${city.name + '/' + city.code}"
-                                    th:selected="${city.id==car.city.id}"></option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <label>ENGINE:</label>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <input type="text" class="form-control" name="engine" th:value="${car.engine}">
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <label>COST:</label>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <input type="text" class="form-control" name="cost" th:value="${car.cost}">
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <label>YEAR:</label>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <input type="number" class="form-control" name="year" th:value="${car.year}">
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <button class="btn btn-success btn-sm">UPDATE CAR</button>
-                    </div>
-                </div>
+
+    <div class="row">
+        <div class="col-6">
+
+            <form action="/delete-city" method="post">
+
+                <input type="hidden" th:value="${car.id}" name="car_id">
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>CODE</th>
+                        <th>NAME</th>
+                        <th>COUNT PEOPLE</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="city: ${car.getCities()}">
+                        <td th:text="${city.id}"></td>
+                        <td th:text="${city.code}"></td>
+                        <td th:text="${city.name}"></td>
+                        <td th:text="${city.countPeople}"></td>
+                        <td>
+                            <button th:value="${city.id}" name="city_id" class="btn btn-danger btn-sm"> >>></button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
             </form>
+
         </div>
+
+
+        <div class="col-6">
+
+            <form action="/add-city" method="post">
+
+                <input type="hidden" th:value="${car.id}" name="car_id">
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>CODE</th>
+                        <th>NAME</th>
+                        <th>COUNT PEOPLE</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="city: ${cities}">
+                        <td th:text="${city.id}"></td>
+                        <td th:text="${city.code}"></td>
+                        <td th:text="${city.name}"></td>
+                        <td th:text="${city.countPeople}"></td>
+                        <td>
+                            <button th:value="${city.id}" name="city_id" class="btn btn-success btn-sm"> <<< </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </form>
+
+        </div>
+
+
+    </div>
+
+
+    <form action="/update-car" method="post">
+        <input type="hidden" name="id" th:value="${car.id}">
+        <div class="row mt-2">
+            <div class="col-12">
+                <label>MODEL NAME:</label>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12">
+                <input type="text" class="form-control" name="model" th:value="${car.model}">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12">
+                <label>COUNTRY:</label>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12">
+                <input type="text" class="form-control" name="country" th:value="${car.country}">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12">
+                <label>CITY:</label>
+            </div>
+        </div>
+        <!--                <div class="row mt-2">-->
+        <!--                    <div class="col-12">-->
+        <!--                        <select class="form-control" name="city.id">-->
+        <!--                            <option th:each="city: ${cities}"-->
+        <!--                                    th:value="${city.id}"-->
+        <!--                                    th:text="${city.name + '/' + city.code}"-->
+        <!--                                    th:selected="${city.id==car.city.id}"></option>-->
+        <!--                        </select>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <div class="row mt-2">
+            <div class="col-12">
+                <label>ENGINE:</label>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12">
+                <input type="text" class="form-control" name="engine" th:value="${car.engine}">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12">
+                <label>COST:</label>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12">
+                <input type="text" class="form-control" name="cost" th:value="${car.cost}">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12">
+                <label>YEAR:</label>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12">
+                <input type="number" class="form-control" name="year" th:value="${car.year}">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12">
+                <button class="btn btn-success btn-sm">UPDATE CAR</button>
+            </div>
+        </div>
+    </form>
+</div>
 </body>
 </html>
