@@ -5,9 +5,9 @@
 <body>
 
 <div layout:fragment="other_page">
-    <div class="running-string">
-        <button class="btn btn-success btn-sm">ABOUT CARS</button>
-    </div>
+<!--    <div class="running-string">-->
+<!--        <button class="btn btn-success btn-sm">ABOUT CARS</button>-->
+<!--    </div>-->
 
     <table class="table table-striped">
         <thead>
@@ -18,6 +18,8 @@
             <th>ENGINE</th>
             <th>COST</th>
             <th>YEAR</th>
+            <th>OWNER</th>
+            <th>CAR PASSPORT</th>
             <th style="width: 14%">DELETE CAR</th>
             <th style="width: 8%">DETAILS</th>
         </tr>
@@ -30,6 +32,8 @@
             <td th:text="${car.engine}"></td>
             <td th:text="${car.cost}"></td>
             <td th:text="${car.year}"></td>
+            <td th:text="${car.owner.fullName}"></td>
+            <td th:text="${car.carPassport.details}"></td>
             <form action="/delete-car" method="post">
                 <input type="hidden" name="id" th:value="${car.id}">
                 <td> <button class="btn btn-sm btn-danger" type="submit">DELETE CAR</button> </td>

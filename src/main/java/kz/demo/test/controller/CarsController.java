@@ -5,6 +5,7 @@ import kz.demo.test.model.City;
 import kz.demo.test.repository.CarRepository;
 import kz.demo.test.repository.CityRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -23,7 +25,7 @@ public class CarsController {
 
     @GetMapping(value = "/") //http://localhost:8080/
     public String mainPage(Model model){
-        model.addAttribute("cars", carRepository.findAll());
+        model.addAttribute("cars", carRepository.findAll(Sort.by(Sort.Direction.ASC, "id")));
         return "index";
     }
 
