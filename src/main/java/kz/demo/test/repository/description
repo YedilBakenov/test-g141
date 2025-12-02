@@ -1,0 +1,8 @@
+Виды запросов:
+
+1. QUERY (JPQL/SQL)
+2. JPQL (Java Persistence Query Language)
+3. SQL (Structured Query Language)
+4. CRITERIA BUILDER
+5. PAGINATION
+6. ENTITY MANAGER

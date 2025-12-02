@@ -4,6 +4,7 @@ import kz.demo.test.model.Car;
 import kz.demo.test.model.City;
 import kz.demo.test.repository.CarRepository;
 import kz.demo.test.repository.CityRepository;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,13 @@ public class CarsController {
     @GetMapping(value = "/") //http://localhost:8080/
     public String mainPage(Model model){
         model.addAttribute("cars", carRepository.findAll(Sort.by(Sort.Direction.ASC, "id")));
+        return "index";
+    }
+
+    @GetMapping(value = "/search")//http://localhost:8080/search
+    public String search(Model model,
+                         @RequestParam String word){
+        model.addAttribute("cars", carRepository.findByName(word));
         return "index";
     }
 
