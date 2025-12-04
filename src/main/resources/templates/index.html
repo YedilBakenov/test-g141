@@ -9,6 +9,33 @@
 <!--        <button class="btn btn-success btn-sm">ABOUT CARS</button>-->
 <!--    </div>-->
 
+    <form action="/greater-cost" method="get">
+
+        <div class="d-flex">
+            <div>
+                <input type="text" class="form-control" name="cost">
+            </div>
+            <div class="ms-2">
+                <button class="btn btn-success btn-md">SEARCH BY COST</button>
+            </div>
+        </div>
+    </form>
+
+    <form action="/model-or-cost" method="get" class="mt-2">
+
+        <div class="d-flex">
+            <div>
+                <input type="text" class="form-control" name="model" placeholder="MODEL:">
+            </div>
+            <div class="ms-2">
+                <input type="text" class="form-control" name="cost" placeholder="COST:">
+            </div>
+            <div class="ms-2">
+                <button class="btn btn-success btn-md">SEARCH BY MODEL OR COST</button>
+            </div>
+        </div>
+    </form>
+
     <table class="table table-striped">
         <thead>
         <tr>

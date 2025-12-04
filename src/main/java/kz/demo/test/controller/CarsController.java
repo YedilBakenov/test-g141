@@ -4,8 +4,11 @@ import kz.demo.test.model.Car;
 import kz.demo.test.model.City;
 import kz.demo.test.repository.CarRepository;
 import kz.demo.test.repository.CityRepository;
-import lombok.Getter;
+import kz.demo.test.repository.CustomCarRepository;
+import kz.demo.test.repository.impl.CustomCarRepositoryImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +25,10 @@ public class CarsController {
 
     private final CarRepository carRepository;
     private final CityRepository cityRepository;
+
+    @Autowired
+    @Qualifier("main")
+    private  CustomCarRepository customRepository;
 
     @GetMapping(value = "/") //http://localhost:8080/
     public String mainPage(Model model){
@@ -109,6 +116,27 @@ public class CarsController {
         return "redirect:/get-car/" + car_id;
 
 
+    }
+
+    @GetMapping(value = "/greater-cost")
+    public String getCarsGreaterThan(@RequestParam double cost,
+                                        Model model){
+        model.addAttribute("cars", customRepository.findCarsByCostMore(cost));
+        return "index";
+    }
+
+    @GetMapping(value = "/model-or-cost")
+    public String getCarByModelOrCost(@RequestParam(required = false) String model,
+                                      @RequestParam(required = false) Double cost,
+                                      Model m){
+        m.addAttribute("cars", customRepository.findCarsByModelOrCost(model, cost));
+        return "index";
+    }
+
+    @GetMapping(value = "/sorted-cost")
+    public String sortedCost(Model model){
+        model.addAttribute("cars", customRepository.sortCarsByCost());
+        return "index";
     }
 
 }
