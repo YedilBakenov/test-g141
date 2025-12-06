@@ -5,10 +5,12 @@ import kz.demo.test.model.City;
 import kz.demo.test.repository.CarRepository;
 import kz.demo.test.repository.CityRepository;
 import kz.demo.test.repository.CustomCarRepository;
-import kz.demo.test.repository.impl.CustomCarRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -137,6 +139,45 @@ public class CarsController {
     public String sortedCost(Model model){
         model.addAttribute("cars", customRepository.sortCarsByCost());
         return "index";
+    }
+
+    @GetMapping(value = "/sorted-pagination") // http://localhost:8080/sorted
+    public String getAllCarsByPagination(@RequestParam(defaultValue = "0") int page,  // Номер страницы, по умолчанию указал первую страницу
+                                         @RequestParam(defaultValue = "4") int size, // Кол-во записей на странице
+                                         @RequestParam(defaultValue = "id") String param, // Параметр сортировки
+                                         @RequestParam(defaultValue = "asc") String direction,
+                                         Model model){// Направление сортировки
+            Sort sort = direction.equalsIgnoreCase("desc")? Sort.by(param).descending():
+                     Sort.by(param).ascending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Page<Car> carsPage = carRepository.findAll(pageable);
+
+        model.addAttribute("cars", carsPage.getContent());
+
+        return "index";
+    }
+
+    @GetMapping(value = "/cost-pagination")
+    public String getAllCarsCostPagination(Model model,
+                                           @RequestParam double cost,
+                                           @RequestParam(defaultValue = "0") int page,
+                                           @RequestParam(defaultValue = "2") int size,
+                                           @RequestParam(defaultValue = "cost") String param,
+                                           @RequestParam(defaultValue = "asc") String direction){
+        Sort sort = direction.equalsIgnoreCase("desc")? Sort.by(param).descending()
+                : Sort.by(param).ascending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Page<Car> carsPage = carRepository.findByCostGreaterThan(cost, pageable);
+
+        model.addAttribute("cars", carsPage.getContent());
+
+        return "index";
+
+
     }
 
 }
